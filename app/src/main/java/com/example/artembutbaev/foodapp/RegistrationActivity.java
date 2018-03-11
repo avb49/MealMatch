@@ -19,16 +19,16 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private Button mRegister;
     private EditText mEmail, mPassword;
-    private FirebaseAuth fireBaseAuth;
-    private FirebaseAuth.AuthStateListener fireBaseAuthStateListener;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        fireBaseAuth = FirebaseAuth.getInstance();
-        fireBaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
+        mAuth = FirebaseAuth.getInstance();
+        firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
 
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -36,7 +36,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                 if(user != null) {
-                    
 
                     Intent intent = new Intent(RegistrationActivity.this,
                             MainActivity.class);
@@ -48,7 +47,7 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         };
 
-        mRegister = (Button) findViewById(R.id.Register);
+        mRegister = (Button) findViewById(R.id.register);
 
         mEmail = (EditText) findViewById(R.id.email);
 
@@ -61,15 +60,17 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 final String email = mEmail.getText().toString();
                 final String password = mPassword.getText().toString();
-                fireBaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener
+
+                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener
                         (RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
+
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if(!task.isSuccessful()) {
 
                             Toast.makeText(RegistrationActivity.this,
-                                    "Sign up error", Toast.LENGTH_SHORT).show();
+                                    "sign up error", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -80,12 +81,12 @@ public class RegistrationActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        fireBaseAuth.addAuthStateListener(fireBaseAuthStateListener);
+        mAuth.addAuthStateListener(firebaseAuthStateListener);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        fireBaseAuth.removeAuthStateListener(fireBaseAuthStateListener);
+        mAuth.removeAuthStateListener(firebaseAuthStateListener);
     }
 }

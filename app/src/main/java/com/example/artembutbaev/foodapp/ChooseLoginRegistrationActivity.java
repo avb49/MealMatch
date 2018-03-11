@@ -16,15 +16,15 @@ public class ChooseLoginRegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_login_registration);
 
-        mLogin = findViewById(R.id.Login);
-        mRegister = findViewById(R.id.Register);
+        mLogin = (Button) findViewById(R.id.login);
+        mRegister = (Button) findViewById(R.id.register);
 
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Intent intent = new Intent(ChooseLoginRegistrationActivity.this,
-                        MainActivity.class);
+                        LoginActivity.class);
 
                 startActivity(intent);
                 finish();

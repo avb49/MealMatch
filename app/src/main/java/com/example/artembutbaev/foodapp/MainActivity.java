@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         rowItems.add(fish);
         rowItems.add(tacos);
 
-
         arrayAdapter = new ArrayAdapters(this, R.layout.item, rowItems);
 
         SwipeFlingAdapterView flingContainer = (SwipeFlingAdapterView) findViewById(R.id.frame);
