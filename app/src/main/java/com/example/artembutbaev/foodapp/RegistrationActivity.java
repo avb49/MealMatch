@@ -36,6 +36,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                 if(user != null) {
+                    
 
                     Intent intent = new Intent(RegistrationActivity.this,
                             MainActivity.class);
